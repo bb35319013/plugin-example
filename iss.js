@@ -76,7 +76,7 @@ const html = `
       e.currentTarget.textContent = "Follow";  //クリックした要素を含むノード内のテキストをFollowに書き換える
       return;
     }
-    const cb = () => update().then(() => {
+    const cb = () => update().then(() => {  //<-ここの関数わからん
       send();
       if (timer) timer = setTimeout(cb, 3000);
     });
@@ -85,15 +85,15 @@ const html = `
     e.currentTarget.textContent = "Unfollow";
   });
 
-  let folded = true;
-  document.getElementById("resize").addEventListener("click", (e) => {
-    folded = !folded;
-    parent.postMessage({ type: "resize", folded }, "*");
+  let folded = true;  //変数を定義し、trueを代入
+  document.getElementById("resize").addEventListener("click", (e) => {  //resizeのボタンをクリックしたら以下を実行
+    folded = !folded;  //foldedにfoldedの否定を代入
+    parent.postMessage({ type: "resize", folded }, "*");  //iframeの内側から外側(webassembly?)へ送信?
   });
 </script>
 `;
 
-reearth.ui.show(html, { width: 300 });
+reearth.ui.show(html, { width: 300 });  //
 
 reearth.on("update", () => {
   reearth.ui.postMessage({
